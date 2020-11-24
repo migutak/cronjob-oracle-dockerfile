@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-loans
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        labels:
+          app: cron-loans
+        spec:
+          containers:
+          - name: cron-loans
+            image: migutak/oracledbcron:2.0
+            args:
+            - /bin/sh
+            - -c
+            - sqlplus ecol/ecol@ECOL @loans.sql
+          restartPolicy: OnFailure
+
+
