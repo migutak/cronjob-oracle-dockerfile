@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-ipf
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        labels:
+          app: cron-ipf
+        spec:
+          containers:
+          - name: cron-ipf
+            image: migutak/oracledbcron:2.0
+            args:
+            - /bin/sh
+            - -c
+            - ecol/ecol@159.122.130.149:1564/ORCLCDB.localdomain @ipf.sql
+          restartPolicy: OnFailure
+
+

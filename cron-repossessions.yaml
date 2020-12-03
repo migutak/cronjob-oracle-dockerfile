@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-repos
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        labels:
+          app: cron-repos
+        spec:
+          containers:
+          - name: cron-repos
+            image: migutak/oracledbcron:2.0
+            args:
+            - /bin/sh
+            - -c
+            - ecol/ecol@159.122.130.149:1564/ORCLCDB.localdomain @repos.sql
+          restartPolicy: OnFailure
+
+
