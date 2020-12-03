@@ -4,6 +4,6 @@ EXE=
      (address = (protocol = TCP)(host = HOSTNAME)(port = PORT))
    )
  (connect_data =
-   (service_name=ORCLCDB.localdomain)
+   (service_name=ECOLLECT)
  )
 )

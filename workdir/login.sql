@@ -1,2 +1,2 @@
-PROMPT Hello from sqlplus inside docker
+--PROMPT Hello from sqlplus inside docker
 

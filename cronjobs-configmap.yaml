@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sql-source
+  namespace: ecol
+data:
+  loans.sql: |-
+    drop table tqall;
+    drop table tcards;
+    create table tqall as select * from qall;
+    create table tcards as select * from qcards where primary = 'P';
+    commit;
+  test.sql: |-
+    PROMPT Hello from sqlplus inside docker

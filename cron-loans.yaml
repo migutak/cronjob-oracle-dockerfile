@@ -1,24 +1,31 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: cron-loans
+  name: cronjob-loans
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "* 5 * * *"
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 5
   jobTemplate:
     spec:
       template:
         labels:
-          app: cron-loans
+          app: cronjob-loans
         spec:
           containers:
-          - name: cron-loans
+          - name: cronjob-loans
             image: migutak/oracledbcron:2.0
             args:
             - /bin/sh
             - -c
-            - sqlplus ecol/ecol@ECOL @loans.sql
+            - ecol/ecol@159.122.130.149:1564/ORCLCDB.localdomain @test.sql
           restartPolicy: OnFailure
-
+          volumeMounts:
+          - mountPath: /usr/workdir
+            name: workdir
+            readOnly: false
+      volumes:
+        - name: workdir
+          configMap:
+              name: sql-source
 

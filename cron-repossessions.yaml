@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: cron-repos
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "10 7 * * *"
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 5
   jobTemplate:
